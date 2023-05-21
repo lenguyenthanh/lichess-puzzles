@@ -1,0 +1,54 @@
+import sbt._
+
+object Dependencies {
+
+  val lilaMaven = "lila-maven" at "https://raw.githubusercontent.com/lichess-org/lila-maven/master"
+
+  object V {
+    val decline = "2.4.1"
+    val fs2 = "3.7.0"
+    val scribe = "3.11.3"
+    val monocle = "3.2.0"
+    val iron = "2.0.0"
+    val circe = "0.14.5"
+    val http4s = "1.0.0-M39"
+  }
+
+  def http4s(artifact: String): ModuleID = "org.http4s" %% s"http4s-$artifact" % V.http4s
+  def circe(artifact: String) = "io.circe" %% s"circe-$artifact" % V.circe
+
+  val chess = "org.lichess" %% "scalachess" % "14.9.4"
+  val catsCore = "org.typelevel" %% "cats-core" % "2.9.0"
+  val catsEffect = "org.typelevel" %% "cats-effect" % "3.5.0"
+
+  val fs2 = "co.fs2" %% "fs2-core" % V.fs2
+  val fs2IO = "co.fs2" %% "fs2-io" % V.fs2
+  val kittens = "org.typelevel" %% "kittens" % "3.0.0"
+
+  val monocleCore = "dev.optics" %% "monocle-core" % V.monocle
+  val ironCore = "io.github.iltotore" %% "iron" % V.iron
+  val ironCats = "io.github.iltotore" %% "iron-cats" % V.iron
+  val ironCirce = "io.github.iltotore" %% "iron-circe" % V.iron
+
+  val circeFs2 = "io.circe" %% s"circe-fs2" % "0.14.1"
+  val circeCore = circe("core")
+  val circeParser = circe("parser")
+  val circeGeneric = circe("generic")
+
+  val skunk = "org.tpolecat" %% "skunk-core" % "0.6.0-RC2"
+  val otel =   "org.typelevel" %% "otel4s-java" % "0.2.1"
+
+  val http4sDsl = http4s("dsl")
+  val http4sServer = http4s("ember-server")
+  val http4sClient = http4s("ember-client")
+
+  val decline = "com.monovore" %% "decline" % V.decline
+  val declineEffect = "com.monovore" %% "decline-effect" % V.decline
+
+  val scribe = "com.outr" %% "scribe" % V.scribe
+  val scribeCats = "com.outr" %% "scribe-cats" % V.scribe
+
+  val weaver = "com.disneystreaming" %% "weaver-cats" % "0.8.3" % Test
+  val weaverScalaCheck = "com.disneystreaming" %% "weaver-scalacheck" % "0.8.3" % Test
+
+}
