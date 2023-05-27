@@ -41,8 +41,11 @@ lazy val core = project
       skunk,
       otel,
       http4sClient,
+      fs2DataCsv,
+      fs2DataCsvGeneric,
       fs2DataJson,
       fs2DataJsonCirce,
+      fs2Zstd,
     ),
   )
 

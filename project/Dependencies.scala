@@ -38,8 +38,10 @@ object Dependencies {
   val circeParser = circe("parser")
   val circeGeneric = circe("generic")
   val fs2DataCsv = fs2Data("csv")
+  val fs2DataCsvGeneric = fs2Data("csv-generic")
   val fs2DataJson = fs2Data("json")
   val fs2DataJsonCirce = fs2Data("json-circe")
+  val fs2Zstd = "de.lhns" %% "fs2-compress-zstd" % "0.5.0"
 
   val skunk = "org.tpolecat" %% "skunk-core" % "0.6.0-RC2"
   val otel =   "org.typelevel" %% "otel4s-java" % "0.2.1"
