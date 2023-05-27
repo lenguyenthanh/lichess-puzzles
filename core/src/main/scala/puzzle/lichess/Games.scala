@@ -1,9 +1,9 @@
 package puzzle.lichess
 
 import cats.syntax.all.*
-import cats.MonadThrow
-import fs2.{Pipe, Stream}
 import cats.effect.Temporal
+import fs2.{Pipe, Stream}
+
 import org.http4s.client.Client
 import org.http4s.*
 import org.http4s.headers.*
@@ -21,9 +21,9 @@ trait Games[F[_]]:
 
 object Games:
 
-  case class GameError(message: String) extends NoStackTrace
+  case class FetchGameError(message: String) extends NoStackTrace
 
-  def make[F[_]: Temporal, MonadThrow](client: Client[F]): Games[F] = new:
+  def make[F[_]: Temporal](client: Client[F]): Games[F] = new:
 
     override def fetch(ids: List[GameId]): Stream[F, Game] = client
       .stream(createRequest(ids))
@@ -47,6 +47,8 @@ object Games:
     def handle429: Pipe[F, Response[F], Option[Response[F]]] = _.evalMap: response =>
       if response.status == Status.TooManyRequests then none.pure[F]
       else if response.status.isSuccess then response.some.pure[F]
-      else MonadThrow[F].raiseError(GameError(s"Unexpected status code: ${response.status}"))
+      else
+        FetchGameError(s"Unexpected status code: ${response.status}")
+          .raiseError[F, Option[Response[F]]]
 
   private val ndJson = MediaType("application", "x-ndjson", true, false, List("ndjson"))
