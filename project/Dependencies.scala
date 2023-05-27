@@ -12,28 +12,34 @@ object Dependencies {
     val iron = "2.0.0"
     val circe = "0.14.5"
     val http4s = "1.0.0-M39"
+    val fs2Data = "1.7.1"
   }
 
   def http4s(artifact: String): ModuleID = "org.http4s" %% s"http4s-$artifact" % V.http4s
   def circe(artifact: String) = "io.circe" %% s"circe-$artifact" % V.circe
+  def fs2Data(artifact: String) = "org.gnieh" %% s"fs2-data-$artifact" % V.fs2Data
 
-  val chess = "org.lichess" %% "scalachess" % "14.9.4"
+  val chess = "org.lichess" %% "scalachess" % "15.2.6"
+
   val catsCore = "org.typelevel" %% "cats-core" % "2.9.0"
+  val kittens = "org.typelevel" %% "kittens" % "3.0.0"
+
   val catsEffect = "org.typelevel" %% "cats-effect" % "3.5.0"
 
   val fs2 = "co.fs2" %% "fs2-core" % V.fs2
   val fs2IO = "co.fs2" %% "fs2-io" % V.fs2
-  val kittens = "org.typelevel" %% "kittens" % "3.0.0"
 
   val monocleCore = "dev.optics" %% "monocle-core" % V.monocle
   val ironCore = "io.github.iltotore" %% "iron" % V.iron
   val ironCats = "io.github.iltotore" %% "iron-cats" % V.iron
   val ironCirce = "io.github.iltotore" %% "iron-circe" % V.iron
 
-  val circeFs2 = "io.circe" %% s"circe-fs2" % "0.14.1"
   val circeCore = circe("core")
   val circeParser = circe("parser")
   val circeGeneric = circe("generic")
+  val fs2DataCsv = fs2Data("csv")
+  val fs2DataJson = fs2Data("json")
+  val fs2DataJsonCirce = fs2Data("json-circe")
 
   val skunk = "org.tpolecat" %% "skunk-core" % "0.6.0-RC2"
   val otel =   "org.typelevel" %% "otel4s-java" % "0.2.1"

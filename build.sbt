@@ -10,11 +10,11 @@ inThisBuild(
     githubWorkflowJavaVersions := Seq(JavaSpec.temurin("17")),
     githubWorkflowUseSbtThinClient := true,
     githubWorkflowEnv := Map("SBT_OPTS" -> "-Xmx2048M"),
-    semanticdbEnabled := true,
   )
 )
 
 val commonSettings = Seq(
+  scalacOptions -= "-Xfatal-warnings",
   scalacOptions ++= Seq("-source:future", "-rewrite", "-indent", "-Yexplicit-nulls", "-explain", "-Wunused:all"),
   resolvers ++= Seq(Dependencies.lilaMaven),
   libraryDependencies ++= Seq(
@@ -40,6 +40,9 @@ lazy val core = project
     libraryDependencies ++= Seq(
       skunk,
       otel,
+      http4sClient,
+      fs2DataJson,
+      fs2DataJsonCirce,
     ),
   )
 
