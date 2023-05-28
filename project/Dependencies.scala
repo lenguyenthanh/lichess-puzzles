@@ -7,12 +7,12 @@ object Dependencies {
   object V {
     val decline = "2.4.1"
     val fs2 = "3.7.0"
-    val scribe = "3.11.3"
     val monocle = "3.2.0"
     val iron = "2.0.0"
     val circe = "0.14.5"
     val http4s = "1.0.0-M39"
     val fs2Data = "1.7.1"
+    val ciris = "3.2.0"
   }
 
   def http4s(artifact: String): ModuleID = "org.http4s" %% s"http4s-$artifact" % V.http4s
@@ -42,9 +42,12 @@ object Dependencies {
   val fs2DataJson = fs2Data("json")
   val fs2DataJsonCirce = fs2Data("json-circe")
   val fs2Zstd = "de.lhns" %% "fs2-compress-zstd" % "0.5.0"
+  val cirisCore = "is.cir" %% "ciris" % V.ciris
+  val cirisRefined = "is.cir" %% "ciris-refined" % V.ciris
 
   val skunk = "org.tpolecat" %% "skunk-core" % "0.6.0-RC2"
-  val otel =   "org.typelevel" %% "otel4s-java" % "0.2.1"
+  val otel = "org.typelevel" %% "otel4s-java" % "0.2.1"
+  val flyway = "com.github.geirolz" %% "fly4s-core" % "0.0.17"
 
   val http4sDsl = http4s("dsl")
   val http4sServer = http4s("ember-server")
@@ -53,8 +56,7 @@ object Dependencies {
   val decline = "com.monovore" %% "decline" % V.decline
   val declineEffect = "com.monovore" %% "decline-effect" % V.decline
 
-  val scribe = "com.outr" %% "scribe" % V.scribe
-  val scribeCats = "com.outr" %% "scribe-cats" % V.scribe
+  val log4Cats = "org.typelevel" %% "log4cats-slf4j" % "2.6.0"
 
   val weaver = "com.disneystreaming" %% "weaver-cats" % "0.8.3" % Test
   val weaverScalaCheck = "com.disneystreaming" %% "weaver-scalacheck" % "0.8.3" % Test
