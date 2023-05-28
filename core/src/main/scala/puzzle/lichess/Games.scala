@@ -27,8 +27,8 @@ object Games:
 
     override def fetch(ids: List[GameId]): Stream[F, Game] = client
       .stream(createRequest(ids))
-      .through(handle429)
-      .through(untilSome)
+      .through(handleStatusCode)
+      .through(untilSuccess)
       .flatMap(_.bodyText)
       .through(tokens[F, String])
       .through(codec.deserialize[F, Game])
@@ -39,16 +39,15 @@ object Games:
       headers = Headers(Accept(ndJson)),
     ).withEntity(ids.mkString(","))
 
-    def untilSome[A]: Pipe[F, Option[A], A] = x =>
+    def untilSuccess[A]: Pipe[F, Option[A], A] = x =>
       (x ++ Stream.sleep(1.minute).as(none))
         .repeat
-        .collectFirst { case (Some(x)) => x }
+        .collectFirst:
+          case Some(x) => x
 
-    def handle429: Pipe[F, Response[F], Option[Response[F]]] = _.evalMap: response =>
-      if response.status == Status.TooManyRequests then none.pure[F]
-      else if response.status.isSuccess then response.some.pure[F]
-      else
-        FetchGameError(s"Unexpected status code: ${response.status}")
-          .raiseError[F, Option[Response[F]]]
+    def handleStatusCode: Pipe[F, Response[F], Option[Response[F]]] = _.evalMap: response =>
+      if response.status.isSuccess then response.some.pure[F]
+      else if response.status == Status.TooManyRequests then none.pure[F]
+      else FetchGameError(s"Unexpected status code: ${response.status}").raiseError
 
   private val ndJson = MediaType("application", "x-ndjson", true, false, List("ndjson"))
