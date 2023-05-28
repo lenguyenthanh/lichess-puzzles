@@ -15,12 +15,12 @@ object Config:
   def load[F[_]: Async]: F[AppConfig] = appConfig.load[F]
 
   def appConfig[F[_]] = (
-    PostgreSQLConfig.config,
+    PostgresConfig.config,
     HttpServerConfig.config,
   ).parMapN(AppConfig.apply)
 
 case class AppConfig(
-  postgresSql: PostgreSQLConfig,
+  postgres: PostgresConfig,
   server: HttpServerConfig,
 )
 
@@ -41,7 +41,7 @@ case class FlywayConfig(
   migrationsLocations: List[String],
 )
 
-case class PostgreSQLConfig(
+case class PostgresConfig(
   host: NonEmptyString,
   port: UserPortNumber,
   user: NonEmptyString,
@@ -58,24 +58,24 @@ case class PostgreSQLConfig(
     migrationsLocations = List("/db"),
   )
 
-object PostgreSQLConfig:
-  def postgresSQLHost[F[_]] = env("POSTGRES_HOST").or(prop("postgres.host")).as[NonEmptyString]
+object PostgresConfig:
+  def host[F[_]] = env("POSTGRES_HOST").or(prop("postgres.host")).as[NonEmptyString]
 
-  def postgresSQLPort[F[_]] = env("POSTGRES_PORT").or(prop("postgres.port")).as[UserPortNumber]
+  def port[F[_]] = env("POSTGRES_PORT").or(prop("postgres.port")).as[UserPortNumber]
 
-  def postgresSQLUser[F[_]] = env("POSTGRES_USER").or(prop("postgres.user")).as[NonEmptyString]
+  def user[F[_]] = env("POSTGRES_USER").or(prop("postgres.user")).as[NonEmptyString]
 
-  def postgresSQLPassword[F[_]] = env("POSTGRES_PASSWORD").or(prop("postgres.password")).as[NonEmptyString]
+  def password[F[_]] = env("POSTGRES_PASSWORD").or(prop("postgres.password")).as[NonEmptyString]
 
-  def postgresSQLDatabase[F[_]] = env("POSTGRES_DATABASE").or(prop("postgres.database")).as[NonEmptyString]
+  def database[F[_]] = env("POSTGRES_DATABASE").or(prop("postgres.database")).as[NonEmptyString]
 
-  def postgresSQLMax[F[_]] = env("POSTGRES_MAX").or(prop("postgres.max")).as[PosInt]
+  def max[F[_]] = env("POSTGRES_MAX").or(prop("postgres.max")).as[PosInt]
 
   def config[F[_]] = (
-    postgresSQLHost,
-    postgresSQLPort,
-    postgresSQLUser,
-    postgresSQLPassword,
-    postgresSQLDatabase,
-    postgresSQLMax,
-  ).parMapN(PostgreSQLConfig.apply)
+    host,
+    port,
+    user,
+    password,
+    database,
+    max,
+  ).parMapN(PostgresConfig.apply)
