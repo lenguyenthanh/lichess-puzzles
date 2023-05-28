@@ -5,6 +5,8 @@ inThisBuild(
     scalaVersion := "3.3.0-RC6",
     versionScheme := Some("early-semver"),
 
+    run / fork := true,
+
     // Github Workflow
     githubWorkflowPublishTargetBranches := Seq(), // Don't publish anywhere
     githubWorkflowJavaVersions := Seq(JavaSpec.temurin("17")),
@@ -58,6 +60,22 @@ lazy val cli = project
     ),
   )
   .dependsOn(core)
+
+lazy val backend = project
+  .settings(
+    commonSettings,
+    libraryDependencies ++= Seq(
+      http4sDsl,
+      http4sServer,
+      flyway,
+      postgres,
+      flyway4s,
+      logback % Runtime,
+    ),
+  )
+  .dependsOn(core)
+
+
 
 lazy val root = project
   .in(file("."))
