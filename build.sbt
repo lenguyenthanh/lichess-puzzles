@@ -2,9 +2,8 @@ import Dependencies._
 
 inThisBuild(
   Seq(
-    scalaVersion := "3.3.0-RC6",
+    scalaVersion := "3.3.1-RC1",
     versionScheme := Some("early-semver"),
-
     run / fork := true,
 
     // Github Workflow
@@ -74,8 +73,6 @@ lazy val backend = project
     ),
   )
   .dependsOn(core)
-
-
 
 lazy val root = project
   .in(file("."))
