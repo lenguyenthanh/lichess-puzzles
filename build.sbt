@@ -25,6 +25,7 @@ val commonSettings = Seq(
     circeCore,
     circeGeneric,
     circeParser,
+    circeRefined,
     log4Cats,
     refinedCore,
     refinedCats,

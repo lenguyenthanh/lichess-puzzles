@@ -38,6 +38,8 @@ object Dependencies {
   val circeCore = circe("core")
   val circeParser = circe("parser")
   val circeGeneric = circe("generic")
+  val circeRefined = circe("refined")
+
   val fs2DataCsv = fs2Data("csv")
   val fs2DataCsvGeneric = fs2Data("csv-generic")
   val fs2DataJson = fs2Data("json")
