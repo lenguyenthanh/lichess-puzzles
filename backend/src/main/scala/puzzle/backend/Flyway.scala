@@ -9,14 +9,6 @@ import org.typelevel.log4cats.Logger
 import org.flywaydb.core.api.output.ValidateOutput
 import cats.data.NonEmptyList
 
-case class FlywayConfig(
-  url: String,
-  user: Option[String],
-  password: Option[Array[Char]],
-  migrationsTable: String,
-  migrationsLocations: List[String],
-)
-
 trait Flyway[F[_]]:
   def migrate: F[Unit]
 

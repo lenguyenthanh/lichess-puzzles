@@ -10,9 +10,10 @@ object Dependencies {
     val monocle = "3.2.0"
     val iron = "2.0.0"
     val circe = "0.14.5"
-    val http4s = "1.0.0-M39"
+    val http4s = "0.23.9"
     val fs2Data = "1.7.1"
     val ciris = "3.2.0"
+    val refined = "0.9.29"
   }
 
   def http4s(artifact: String): ModuleID = "org.http4s" %% s"http4s-$artifact" % V.http4s
@@ -42,8 +43,13 @@ object Dependencies {
   val fs2DataJson = fs2Data("json")
   val fs2DataJsonCirce = fs2Data("json-circe")
   val fs2Zstd = "de.lhns" %% "fs2-compress-zstd" % "0.5.0"
+
   val cirisCore = "is.cir" %% "ciris" % V.ciris
+  val cirisHtt4s = "is.cir" %% "ciris-http4s" % V.ciris
   val cirisRefined = "is.cir" %% "ciris-refined" % V.ciris
+
+  val refinedCore = "eu.timepit" %% "refined" % V.refined
+  val refinedCats = "eu.timepit" %% "refined-cats" % V.refined
 
   val skunk = "org.tpolecat" %% "skunk-core" % "0.6.0-RC2"
   val otel = "org.typelevel" %% "otel4s-java" % "0.2.1"

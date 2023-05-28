@@ -4,7 +4,6 @@ inThisBuild(
   Seq(
     scalaVersion := "3.3.0-RC6",
     versionScheme := Some("early-semver"),
-
     run / fork := true,
 
     // Github Workflow
@@ -22,14 +21,13 @@ val commonSettings = Seq(
   libraryDependencies ++= Seq(
     chess,
     catsCore,
-    ironCore,
-    ironCats,
-    ironCirce,
     monocleCore,
     circeCore,
     circeGeneric,
     circeParser,
     log4Cats,
+    refinedCore,
+    refinedCats,
     weaver,
     weaverScalaCheck,
   ),
@@ -67,15 +65,15 @@ lazy val backend = project
     libraryDependencies ++= Seq(
       http4sDsl,
       http4sServer,
+      cirisCore,
+      cirisRefined,
+      cirisHtt4s,
       flyway,
       postgres,
       flyway4s,
-      logback % Runtime,
     ),
   )
   .dependsOn(core)
-
-
 
 lazy val root = project
   .in(file("."))

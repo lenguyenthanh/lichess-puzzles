@@ -10,8 +10,6 @@ import org.http4s.ember.server.EmberServerBuilder
 import org.http4s.server.Server
 import org.http4s.server.defaults.Banner
 import org.typelevel.log4cats.Logger
-import com.comcast.ip4s.Host
-import com.comcast.ip4s.Port
 
 final class ServerRoutes[F[_]: MonadThrow] extends Http4sDsl[F]:
 
@@ -21,8 +19,6 @@ final class ServerRoutes[F[_]: MonadThrow] extends Http4sDsl[F]:
       case GET -> Root / "hello" / name => Ok(s"Hello, $name!")
 
   val routes: HttpRoutes[F] = Router("/" -> httpRoutes)
-
-case class HttpServerConfig(host: Host, port: Port)
 
 trait MkHttpServer[F[_]]:
   def newEmber(cfg: HttpServerConfig): Resource[F, Server]
