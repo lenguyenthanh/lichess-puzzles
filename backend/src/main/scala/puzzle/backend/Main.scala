@@ -5,7 +5,9 @@ import cats.effect.*
 import org.typelevel.log4cats.Logger
 import org.typelevel.log4cats.slf4j.Slf4jLogger
 import puzzle.services.Services
+
 import puzzle.backend.http.HttpApi
+import puzzle.backend.http.HealthCheck
 
 object Main extends IOApp.Simple:
 
@@ -19,6 +21,7 @@ object Main extends IOApp.Simple:
         .evalTap(_.flyway.migrate)
         .flatMap: res =>
           val services = Services.instance[IO](res.postgres)
-          val app = HttpApi[IO](services).httpApp
+          val healthCheck = HealthCheck.instance[IO](res.postgres)
+          val app = HttpApi[IO](services, healthCheck).httpApp
           MkHttpServer[IO].newEmber(cfg.server, app)
         .useForever
