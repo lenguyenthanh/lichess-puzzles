@@ -1,5 +1,9 @@
 // https://github.com/typelevel/skunk/pull/581
 
+// Copyright (c) 2018-2021 by Rob Norris
+// This software is licensed under the MIT License (MIT).
+// For more information see LICENSE or https://opensource.org/licenses/MIT
+
 package puzzle
 package services
 
@@ -8,9 +12,7 @@ import eu.timepit.refined.api.{ RefType, Refined, Validate }
 
 trait RefTypeCodecs:
 
-  def refTypeCodec[T, P, F[_, _]](
-      codecT: Codec[T]
-  )(
+  def refTypeCodec[T, P, F[_, _]](codecT: Codec[T])(
       implicit
       validate: Validate[T, P],
       refType: RefType[F],
@@ -18,15 +20,10 @@ trait RefTypeCodecs:
     refType.unwrap
   )
 
-  def refTypeEncoder[T, P, F[_, _]](
-      writeT: Encoder[T]
-  )(
-      implicit refType: RefType[F]
-  ): Encoder[F[T, P]] = writeT.contramap[F[T, P]](refType.unwrap)
+  def refTypeEncoder[T, P, F[_, _]](writeT: Encoder[T])(implicit refType: RefType[F]): Encoder[F[T, P]] =
+    writeT.contramap[F[T, P]](refType.unwrap)
 
-  def refTypeDecoder[T, P, F[_, _]](
-      readT: Decoder[T]
-  )(
+  def refTypeDecoder[T, P, F[_, _]](readT: Decoder[T])(
       implicit
       validate: Validate[T, P],
       refType: RefType[F],
@@ -34,15 +31,9 @@ trait RefTypeCodecs:
 
 object refType extends RefTypeCodecs
 
-// Copyright (c) 2018-2021 by Rob Norris
-// This software is licensed under the MIT License (MIT).
-// For more information see LICENSE or https://opensource.org/licenses/MIT
-
 trait RefinedCodecs:
 
-  def refinedCodec[T, P](
-      codecT: Codec[T]
-  )(
+  def refinedCodec[T, P](codecT: Codec[T])(
       implicit v: Validate[T, P]
   ): Codec[Refined[T, P]] = refType.refTypeCodec[T, P, Refined](codecT)
 
@@ -58,8 +49,6 @@ trait RefinedCodecs:
 object refined extends RefinedCodecs
 
 object Syntax:
-
-  val x = "hello"
 
   extension [T](c: Codec[T])
     def refine[P](

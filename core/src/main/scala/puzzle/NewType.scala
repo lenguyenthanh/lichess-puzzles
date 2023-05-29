@@ -1,7 +1,5 @@
 package puzzle
 
-import java.util.UUID
-
 import cats.{ Eq, Order, Show }
 import io.circe.{ Decoder, Encoder }
 import monocle.Iso
@@ -43,10 +41,6 @@ abstract class Newtype[A](
   given Encoder[Type]  = enc
   given Decoder[Type]  = dec
   given Ordering[Type] = ord.toOrdering
-
-abstract class IdNewtype extends Newtype[UUID]:
-  given IsUUID[Type]                = derive[IsUUID]
-  def unsafeFrom(str: String): Type = apply(UUID.fromString(str).nn)
 
 @annotation.nowarn
 abstract class NumNewtype[A](
