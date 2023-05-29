@@ -3,7 +3,6 @@ package backend.http
 
 import scala.concurrent.duration.*
 
-import cats.syntax.all.*
 import cats.effect.{ Async, Temporal }
 import org.http4s.*
 import org.http4s.implicits.*
