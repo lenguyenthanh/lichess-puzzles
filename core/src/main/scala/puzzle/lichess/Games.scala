@@ -2,7 +2,7 @@ package puzzle.lichess
 
 import cats.syntax.all.*
 import cats.effect.Temporal
-import fs2.{Pipe, Stream}
+import fs2.{ Pipe, Stream }
 
 import org.http4s.client.Client
 import org.http4s.*

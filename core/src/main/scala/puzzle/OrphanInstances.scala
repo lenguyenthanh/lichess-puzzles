@@ -1,18 +1,18 @@
 package puzzle
 
-import cats.{Eq, Show}
+import cats.{ Eq, Show }
 
-import chess.format.{EpdFen, Uci}
+import chess.format.{ EpdFen, Uci }
 import io.circe.Encoder
 import io.circe.Decoder
 import io.circe.DecodingFailure
 
 object OrphanInstances:
 
-  given Eq[Uci] = Eq.by(_.uci)
+  given Eq[Uci]   = Eq.by(_.uci)
   given Show[Uci] = Show.show(_.uci)
 
-  given Eq[EpdFen] = Eq.by[EpdFen, String](_.value)
+  given Eq[EpdFen]   = Eq.by[EpdFen, String](_.value)
   given Show[EpdFen] = Show.show[EpdFen](_.value)
 
   given Encoder[Uci] = Encoder[String].contramap(_.uci)

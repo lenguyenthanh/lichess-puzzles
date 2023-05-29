@@ -1,10 +1,10 @@
 package puzzle.lichess
 
 import cats.effect.Concurrent
-import fs2.{Pipe, Stream}
+import fs2.{ Pipe, Stream }
 import fs2.text.utf8
 
-import org.http4s.{Method, Request}
+import org.http4s.{ Method, Request }
 import org.http4s.client.Client
 import org.http4s.implicits.*
 

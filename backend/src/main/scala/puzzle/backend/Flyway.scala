@@ -19,10 +19,7 @@ object Flyway:
     def migrate =
       for
         _ <- Logger[F].info("Running Flyway migration")
-        result <- fly4s
-          .migrate
-          // .map(_.toEither.leftMap(x => RuntimeException(s"Flyway migration failed: ${showError(x)}")))
-          // .rethrow
+        result <- fly4s.migrate
         _ <- Logger[F].info(s"Flyway migration result: $result")
       yield ()
 
