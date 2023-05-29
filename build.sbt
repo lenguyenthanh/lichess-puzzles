@@ -72,6 +72,7 @@ lazy val backend = project
       flyway,
       postgres,
       flyway4s,
+      logback,
     ),
   )
   .dependsOn(core)
