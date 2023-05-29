@@ -4,6 +4,8 @@ import cats.effect.{ IO, IOApp }
 import cats.effect.*
 import org.typelevel.log4cats.Logger
 import org.typelevel.log4cats.slf4j.Slf4jLogger
+import puzzle.services.Services
+import puzzle.backend.http.HttpApi
 
 object Main extends IOApp.Simple:
 
@@ -14,6 +16,9 @@ object Main extends IOApp.Simple:
     .flatMap: cfg =>
       AppResources
         .instance[IO](cfg.postgres)
-        .evalMap(_.flyway.migrate)
-        .flatMap(_ => MkHttpServer[IO].newEmber(cfg.server))
+        .evalTap(_.flyway.migrate)
+        .flatMap: res =>
+          val services = Services.instance[IO](res.postgres)
+          val app = HttpApi[IO](services).httpApp
+          MkHttpServer[IO].newEmber(cfg.server, app)
         .useForever

@@ -63,6 +63,7 @@ object Dependencies {
   val http4sDsl = http4s("dsl")
   val http4sServer = http4s("ember-server")
   val http4sClient = http4s("ember-client")
+  val http4sCirce  = http4s("circe")
 
   val decline = "com.monovore" %% "decline" % V.decline
   val declineEffect = "com.monovore" %% "decline-effect" % V.decline

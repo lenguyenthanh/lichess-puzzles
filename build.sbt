@@ -66,6 +66,7 @@ lazy val backend = project
     libraryDependencies ++= Seq(
       http4sDsl,
       http4sServer,
+      http4sCirce,
       cirisCore,
       cirisRefined,
       cirisHtt4s,

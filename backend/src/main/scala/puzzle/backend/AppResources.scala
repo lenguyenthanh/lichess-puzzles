@@ -12,7 +12,7 @@ import cats.effect.std.Console
 import fs2.io.net.Network
 import natchez.Trace.Implicits.noop
 
-class AppResources[F[_]](
+class AppResources[F[_]] private(
     val postgres: Resource[F, Session[F]],
     val flyway: Flyway[F],
 )

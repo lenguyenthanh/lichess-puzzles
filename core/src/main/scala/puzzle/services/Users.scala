@@ -9,9 +9,12 @@ import cats.syntax.all.*
 import eu.timepit.refined.types.string.NonEmptyString
 
 import Codecs.*
+import scala.util.control.NoStackTrace
 
 trait Users[F[_]]:
   def create(user: User): F[Unit]
+
+case class UserIdExist(id: UserId) extends NoStackTrace
 
 object Users:
   def instance[F[_]: MonadCancelThrow](postgres: Resource[F, Session[F]]): Users[F] = new:
@@ -21,12 +24,15 @@ object Users:
       postgres.use: session =>
         session.prepare(insertUser).flatMap: cmd =>
           cmd.execute(user).void
+        .recoverWith:
+          case SqlState.UniqueViolation(_) =>
+            UserIdExist(user.id).raiseError
 
 private object UserSQL:
 
   val codec: Codec[User] = (userId *: nonEmptyString).to[User]
 
   val insertUser: Command[User] = sql"""
-        INSERT INTO brands
+        INSERT INTO users
         VALUES ($codec)
         """.command
