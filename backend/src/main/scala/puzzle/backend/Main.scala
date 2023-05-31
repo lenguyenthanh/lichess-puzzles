@@ -20,8 +20,8 @@ object Main extends IOApp.Simple:
         .instance[IO](cfg.postgres)
         .evalTap(_.flyway.migrate)
         .flatMap: res =>
-          val services = Services.instance[IO](res.postgres)
+          val services    = Services.instance[IO](res.postgres)
           val healthCheck = HealthCheck.instance[IO](res.postgres)
-          val app = HttpApi[IO](services, healthCheck).httpApp
+          val app         = HttpApi[IO](services, healthCheck).httpApp
           MkHttpServer[IO].newEmber(cfg.server, app)
         .useForever

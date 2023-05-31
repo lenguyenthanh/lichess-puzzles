@@ -2,15 +2,15 @@ import Dependencies._
 
 inThisBuild(
   Seq(
-    scalaVersion := "3.3.0-RC6",
+    scalaVersion  := "3.3.0-RC6",
     versionScheme := Some("early-semver"),
-    run / fork := true,
+    run / fork    := true,
 
     // Github Workflow
     githubWorkflowPublishTargetBranches := Seq(), // Don't publish anywhere
-    githubWorkflowJavaVersions := Seq(JavaSpec.temurin("17")),
-    githubWorkflowUseSbtThinClient := true,
-    githubWorkflowEnv := Map("SBT_OPTS" -> "-Xmx2048M"),
+    githubWorkflowJavaVersions          := Seq(JavaSpec.temurin("17")),
+    githubWorkflowUseSbtThinClient      := true,
+    githubWorkflowEnv                   := Map("SBT_OPTS" -> "-Xmx2048M"),
   )
 )
 
