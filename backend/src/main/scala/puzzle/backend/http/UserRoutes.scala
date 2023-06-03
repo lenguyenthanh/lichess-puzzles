@@ -26,6 +26,6 @@ final class UserRoutes[F[_]: MonadThrow: Concurrent](users: Users[F]) extends Ht
             .flatMap(Created(_))
             .recoverWith:
               case UserIdExist(id) => Conflict(s"User with id ${id.value} already exists")
-              case x => InternalServerError(x.getMessage().nn)
+              case x               => InternalServerError(x.getMessage().nn)
 
   val routes: HttpRoutes[F] = Router(prefixPath -> httpRoutes)

@@ -18,9 +18,9 @@ object Flyway:
 
     def migrate =
       for
-        _ <- Logger[F].info("Running Flyway migration")
+        _      <- Logger[F].info("Running Flyway migration")
         result <- fly4s.migrate
-        _ <- Logger[F].info(s"Flyway migration result: $result")
+        _      <- Logger[F].info(s"Flyway migration result: $result")
       yield ()
 
   def module[F[_]: Async: Logger](config: FlywayConfig): Resource[F, Flyway[F]] = Fly4s

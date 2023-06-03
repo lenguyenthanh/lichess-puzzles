@@ -7,7 +7,7 @@ import ciris.http4s.*
 import eu.timepit.refined.types.net.UserPortNumber
 import eu.timepit.refined.types.numeric.PosInt
 import eu.timepit.refined.types.string.NonEmptyString
-import com.comcast.ip4s.{Host, Port}
+import com.comcast.ip4s.{ Host, Port }
 import cats.effect.Async
 
 object Config:
@@ -20,8 +20,8 @@ object Config:
   ).parMapN(AppConfig.apply)
 
 case class AppConfig(
-  postgres: PostgresConfig,
-  server: HttpServerConfig,
+    postgres: PostgresConfig,
+    server: HttpServerConfig,
 )
 
 case class HttpServerConfig(host: Host, port: Port)
@@ -34,20 +34,20 @@ object HttpServerConfig:
   def config[F[_]] = (httpServerHost, httpServerPort).parMapN(HttpServerConfig.apply)
 
 case class FlywayConfig(
-  url: String,
-  user: Option[String],
-  password: Option[Array[Char]],
-  migrationsTable: String,
-  migrationsLocations: List[String],
+    url: String,
+    user: Option[String],
+    password: Option[Array[Char]],
+    migrationsTable: String,
+    migrationsLocations: List[String],
 )
 
 case class PostgresConfig(
-  host: NonEmptyString,
-  port: UserPortNumber,
-  user: NonEmptyString,
-  password: NonEmptyString,
-  database: NonEmptyString,
-  max: PosInt,
+    host: NonEmptyString,
+    port: UserPortNumber,
+    user: NonEmptyString,
+    password: NonEmptyString,
+    database: NonEmptyString,
+    max: PosInt,
 ):
 
   def toFlywayConfig: FlywayConfig = FlywayConfig(
