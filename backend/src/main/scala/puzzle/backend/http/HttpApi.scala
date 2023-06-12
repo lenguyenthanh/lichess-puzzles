@@ -9,9 +9,9 @@ import org.http4s.*
 import org.http4s.implicits.*
 import org.http4s.server.middleware.*
 
-import puzzle.services.Services
+import puzzle.db.Repository
 
-final class HttpApi[F[_]: Async: Temporal](services: Services[F], healthCheck: HealthCheck[F]):
+final class HttpApi[F[_]: Async: Temporal](services: Repository[F], healthCheck: HealthCheck[F]):
 
   private val userRoutes   = UserRoutes[F](services.users).routes
   private val healthRoutes = HealthRoutes[F](healthCheck).routes

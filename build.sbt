@@ -19,16 +19,12 @@ val commonSettings = Seq(
   scalacOptions ++= Seq("-source:future", "-rewrite", "-indent", "-Yexplicit-nulls", "-explain", "-Wunused:all"),
   resolvers ++= Seq(Dependencies.lilaMaven),
   libraryDependencies ++= Seq(
-    chess,
     catsCore,
     monocleCore,
-    circeCore,
-    circeGeneric,
-    circeParser,
-    circeRefined,
     log4Cats,
     refinedCore,
     refinedCats,
+    log4CatsNoop,
     weaver,
     weaverScalaCheck,
   ),
@@ -38,8 +34,11 @@ lazy val core = project
   .settings(
     commonSettings,
     libraryDependencies ++= Seq(
-      skunk,
-      otel,
+      chess,
+      circeCore,
+      circeGeneric,
+      circeParser,
+      circeRefined,
       http4sClient,
       fs2DataCsv,
       fs2DataCsvGeneric,
@@ -48,6 +47,20 @@ lazy val core = project
       fs2Zstd,
     ),
   )
+
+lazy val database = (project in file("modules/database"))
+  .settings(
+    commonSettings,
+    libraryDependencies ++= Seq(
+      skunk,
+      postgres,
+      flyway,
+      flyway4s,
+      otel,
+      testContainers,
+    ),
+  )
+  .dependsOn(core)
 
 lazy val cli = project
   .settings(
@@ -70,13 +83,10 @@ lazy val backend = project
       cirisCore,
       cirisRefined,
       cirisHtt4s,
-      flyway,
-      postgres,
-      flyway4s,
       logback,
     ),
   )
-  .dependsOn(core)
+  .dependsOn(core, database)
 
 lazy val root = project
   .in(file("."))

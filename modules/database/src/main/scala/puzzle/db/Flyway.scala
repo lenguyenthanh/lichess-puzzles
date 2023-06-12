@@ -1,4 +1,5 @@
-package puzzle.backend
+package puzzle
+package db
 
 import cats.syntax.all.*
 import cats.effect.*

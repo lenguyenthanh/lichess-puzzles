@@ -5,7 +5,7 @@
 // For more information see LICENSE or https://opensource.org/licenses/MIT
 
 package puzzle
-package services
+package db
 
 import skunk.{ Codec, Decoder, Encoder }
 import eu.timepit.refined.api.{ RefType, Refined, Validate }

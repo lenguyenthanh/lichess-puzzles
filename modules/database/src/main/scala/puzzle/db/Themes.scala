@@ -1,5 +1,5 @@
 package puzzle
-package services
+package db
 
 import scala.util.control.NoStackTrace
 import cats.syntax.all.*

@@ -10,12 +10,14 @@ import eu.timepit.refined.types.string.NonEmptyString
 import com.comcast.ip4s.{ Host, Port }
 import cats.effect.Async
 
+import puzzle.db.PostgresConfig
+
 object Config:
 
   def load[F[_]: Async]: F[AppConfig] = appConfig.load[F]
 
   def appConfig[F[_]] = (
-    PostgresConfig.config,
+    postgresConfig[F],
     HttpServerConfig.config,
   ).parMapN(AppConfig.apply)
 
@@ -33,49 +35,16 @@ object HttpServerConfig:
 
   def config[F[_]] = (httpServerHost, httpServerPort).parMapN(HttpServerConfig.apply)
 
-case class FlywayConfig(
-    url: String,
-    user: Option[String],
-    password: Option[Array[Char]],
-    migrationsTable: String,
-    migrationsLocations: List[String],
-)
+def host[F[_]] = env("POSTGRES_HOST").or(prop("postgres.host")).as[NonEmptyString]
 
-case class PostgresConfig(
-    host: NonEmptyString,
-    port: UserPortNumber,
-    user: NonEmptyString,
-    password: NonEmptyString,
-    database: NonEmptyString,
-    max: PosInt,
-):
+def port[F[_]] = env("POSTGRES_PORT").or(prop("postgres.port")).as[UserPortNumber]
 
-  def toFlywayConfig: FlywayConfig = FlywayConfig(
-    url = s"jdbc:postgresql://$host:$port/$database",
-    user = Some(user.toString),
-    password = Some(password.toString.toCharArray.nn),
-    migrationsTable = "flyway",
-    migrationsLocations = List("/db"),
-  )
+def user[F[_]] = env("POSTGRES_USER").or(prop("postgres.user")).as[NonEmptyString]
 
-object PostgresConfig:
-  def host[F[_]] = env("POSTGRES_HOST").or(prop("postgres.host")).as[NonEmptyString]
+def password[F[_]] = env("POSTGRES_PASSWORD").or(prop("postgres.password")).as[NonEmptyString]
 
-  def port[F[_]] = env("POSTGRES_PORT").or(prop("postgres.port")).as[UserPortNumber]
+def database[F[_]] = env("POSTGRES_DATABASE").or(prop("postgres.database")).as[NonEmptyString]
 
-  def user[F[_]] = env("POSTGRES_USER").or(prop("postgres.user")).as[NonEmptyString]
+def max[F[_]] = env("POSTGRES_MAX").or(prop("postgres.max")).as[PosInt]
 
-  def password[F[_]] = env("POSTGRES_PASSWORD").or(prop("postgres.password")).as[NonEmptyString]
-
-  def database[F[_]] = env("POSTGRES_DATABASE").or(prop("postgres.database")).as[NonEmptyString]
-
-  def max[F[_]] = env("POSTGRES_MAX").or(prop("postgres.max")).as[PosInt]
-
-  def config[F[_]] = (
-    host,
-    port,
-    user,
-    password,
-    database,
-    max,
-  ).parMapN(PostgresConfig.apply)
+def postgresConfig[F[_]] = (host, port, user, password, database, max).parMapN(PostgresConfig.apply)

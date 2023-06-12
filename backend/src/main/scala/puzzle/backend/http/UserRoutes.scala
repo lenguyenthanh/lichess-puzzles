@@ -9,8 +9,8 @@ import org.http4s.dsl.Http4sDsl
 import org.http4s.server.Router
 import org.http4s.circe.CirceEntityDecoder.*
 
-import puzzle.services.Users
-import puzzle.services.UserIdExist
+import puzzle.db.Users
+import puzzle.db.UserIdExist
 
 final class UserRoutes[F[_]: MonadThrow: Concurrent](users: Users[F]) extends Http4sDsl[F]:
 

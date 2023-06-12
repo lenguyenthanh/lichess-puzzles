@@ -53,7 +53,7 @@ object Dependencies {
   val refinedCore = "eu.timepit" %% "refined"      % V.refined
   val refinedCats = "eu.timepit" %% "refined-cats" % V.refined
 
-  val skunk        = "org.tpolecat" %% "skunk-core" % "0.6.0"
+  val skunk = "org.tpolecat" %% "skunk-core" % "0.6.0"
 
   val flyway4s = "com.github.geirolz" %% "fly4s-core"  % "0.0.17"
   val flyway   = "org.flywaydb"        % "flyway-core" % "9.14.1"
@@ -67,11 +67,13 @@ object Dependencies {
   val decline       = "com.monovore" %% "decline"        % V.decline
   val declineEffect = "com.monovore" %% "decline-effect" % V.decline
 
-  val otel     = "org.typelevel" %% "otel4s-java"     % "0.2.1"
-  val log4Cats = "org.typelevel" %% "log4cats-slf4j"  % "2.6.0"
-  val logback  = "ch.qos.logback" % "logback-classic" % "1.2.11"
+  val otel         = "org.typelevel" %% "otel4s-java"     % "0.2.1"
+  val log4Cats     = "org.typelevel" %% "log4cats-slf4j"  % "2.6.0"
+  val logback      = "ch.qos.logback" % "logback-classic" % "1.2.11"
 
-  val weaver           = "com.disneystreaming" %% "weaver-cats"       % "0.8.3" % Test
-  val weaverScalaCheck = "com.disneystreaming" %% "weaver-scalacheck" % "0.8.3" % Test
+  val log4CatsNoop = "org.typelevel" %% "log4cats-noop"   % "2.6.0" % Test
+  val testContainers   = "com.dimafeng"        %% "testcontainers-scala-postgresql" % "0.40.16" % Test
+  val weaver           = "com.disneystreaming" %% "weaver-cats"                     % "0.8.3"   % Test
+  val weaverScalaCheck = "com.disneystreaming" %% "weaver-scalacheck"               % "0.8.3"   % Test
 
 }

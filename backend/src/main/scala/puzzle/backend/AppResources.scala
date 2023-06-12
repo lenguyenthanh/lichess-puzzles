@@ -11,30 +11,12 @@ import cats.syntax.all.*
 import cats.effect.std.Console
 import fs2.io.net.Network
 import natchez.Trace.Implicits.noop
+import puzzle.db.DbResources
+import puzzle.db.PostgresConfig
 
-class AppResources[F[_]] private (
-    val postgres: Resource[F, Session[F]],
-    val flyway: Flyway[F],
-)
+class AppResources[F[_]] private (val db: DbResources[F])
 
 object AppResources:
 
   def instance[F[_]: Async: Network: Console: Logger](postgresConf: PostgresConfig): Resource[F, AppResources[F]] =
-
-    def checkPostgresConnection(postgres: Resource[F, Session[F]]): F[Unit] =
-      postgres.use: session =>
-        session.unique(sql"select version();".query(text)).flatMap: v =>
-          Logger[F].info(s"Connected to Postgres $v")
-
-    def mkPostgresResource(c: PostgresConfig): SessionPool[F] =
-      Session
-        .pooled[F](
-          host = c.host.value,
-          port = c.port.value,
-          user = c.user.value,
-          password = Some(c.password.value),
-          database = c.database.value,
-          max = c.max.value,
-        ).evalTap(checkPostgresConnection)
-
-    (mkPostgresResource(postgresConf), Flyway.module[F](postgresConf.toFlywayConfig)).parMapN(AppResources(_, _))
+    DbResources.instance(postgresConf).map(AppResources(_))

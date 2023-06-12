@@ -1,5 +1,5 @@
 package puzzle
-package services
+package db
 
 import skunk.*
 import skunk.implicits.*
