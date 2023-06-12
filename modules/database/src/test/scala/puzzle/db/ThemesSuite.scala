@@ -10,18 +10,21 @@ object ThemesSuite extends SimpleIOSuite:
   val name1 = NonEmptyString.unsafeFrom("test1")
   val name2 = NonEmptyString.unsafeFrom("test2")
 
-  test("create theme success"):
+  private def resource =
     Fixture.createRepositoryResource.map(_.themes)
+
+  test("create theme success"):
+    resource
       .use(_.create(name1).map(_ => expect(true)))
 
   test("insert a theme twice throw ThemExists"):
-    Fixture.createRepositoryResource.map(_.themes).use: themes =>
+    resource.use: themes =>
       themes.create(name1) >> themes.create(name1).attempt.map:
         case Left(ThemeExists(themeName)) => expect(true)
         case _                            => expect(false)
 
   test("insert a two theme andThen get"):
-    Fixture.createRepositoryResource.map(_.themes).use: themes =>
+    resource.use: themes =>
       for
         _      <- themes.create(name1)
         _      <- themes.create(name2)
