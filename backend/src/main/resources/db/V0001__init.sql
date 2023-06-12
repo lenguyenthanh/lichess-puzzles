@@ -50,9 +50,9 @@ CREATE TABLE IF NOT EXISTS puzzle
 CREATE TABLE IF NOT EXISTS theme
 (
     id                 serial PRIMARY KEY,
-    name               text NOT NULL,
+    name               text NOT NULL, -- indexing
     created_at         timestamptz NOT NULL DEFAULT NOW(),
-    updated_at         timestamptz NOT NULL DEFAULT NOW()
+    updated_at         timestamptz NOT NULL DEFAULT NOW(),
 );
 
 CREATE TABLE IF NOT EXISTS puzzle_theme

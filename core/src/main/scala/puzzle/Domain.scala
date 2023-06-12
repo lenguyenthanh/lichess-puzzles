@@ -13,6 +13,7 @@ import chess.*
 import chess.format.*
 
 import OrphanInstances.given
+import eu.timepit.refined.types.numeric.NonNegInt
 
 case class Puzzle(
     id: PuzzleId,
@@ -28,8 +29,13 @@ case class Puzzle(
 
 case class User(id: UserId, name: NonEmptyString) derives Codec.AsObject, Eq, Show
 
+case class Theme(id: ThemeId, name: NonEmptyString) derives Codec.AsObject, Eq, Show
+
 type PuzzleId = PuzzleId.Type
 object PuzzleId extends Newtype[NonEmptyString]
 
 type UserId = UserId.Type
 object UserId extends Newtype[NonEmptyString]
+
+type ThemeId = ThemeId.Type
+object ThemeId extends Newtype[NonNegInt]
