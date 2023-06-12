@@ -4,7 +4,7 @@ import cats.syntax.all.*
 import ciris.*
 import ciris.refined.*
 import ciris.http4s.*
-import eu.timepit.refined.types.net.UserPortNumber
+import eu.timepit.refined.types.net.PortNumber
 import eu.timepit.refined.types.numeric.PosInt
 import eu.timepit.refined.types.string.NonEmptyString
 import com.comcast.ip4s.{ Host, Port }
@@ -37,7 +37,7 @@ object HttpServerConfig:
 
 def host[F[_]] = env("POSTGRES_HOST").or(prop("postgres.host")).as[NonEmptyString]
 
-def port[F[_]] = env("POSTGRES_PORT").or(prop("postgres.port")).as[UserPortNumber]
+def port[F[_]] = env("POSTGRES_PORT").or(prop("postgres.port")).as[PortNumber]
 
 def user[F[_]] = env("POSTGRES_USER").or(prop("postgres.user")).as[NonEmptyString]
 

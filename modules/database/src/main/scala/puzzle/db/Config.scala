@@ -2,7 +2,7 @@ package puzzle.db
 
 import eu.timepit.refined.types.numeric.PosInt
 import eu.timepit.refined.types.string.NonEmptyString
-import eu.timepit.refined.types.net.UserPortNumber
+import eu.timepit.refined.types.net.PortNumber
 
 case class FlywayConfig(
     url: String,
@@ -14,7 +14,7 @@ case class FlywayConfig(
 
 case class PostgresConfig(
     host: NonEmptyString,
-    port: UserPortNumber,
+    port: PortNumber,
     user: NonEmptyString,
     password: NonEmptyString,
     database: NonEmptyString,

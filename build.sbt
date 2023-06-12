@@ -91,4 +91,4 @@ lazy val backend = project
 lazy val root = project
   .in(file("."))
   .settings(publish := {}, publish / skip := true)
-  .aggregate(core, cli)
+  .aggregate(core, cli, backend, database)

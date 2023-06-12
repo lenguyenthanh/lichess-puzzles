@@ -14,7 +14,7 @@ import eu.timepit.refined.numeric.NonNegative
 
 object Codecs:
 
-  val nonEmptyString: Codec[NonEmptyString] = varchar.refine[NonEmpty]
+  val nonEmptyString: Codec[NonEmptyString] = text.refine[NonEmpty]
   val nonNegInt: Codec[NonNegInt]           = int4.refine[NonNegative]
   val userId: Codec[UserId]                 = nonEmptyString.imap(UserId(_))(_.value)
   val themeId: Codec[ThemeId]               = nonNegInt.imap(ThemeId(_))(_.value)

@@ -16,7 +16,7 @@ trait Themes[F[_]]:
   def create(name: NonEmptyString): F[Unit]
   def list: F[List[Theme]]
 
-case class ThemeNameExists(name: NonEmptyString) extends NoStackTrace
+case class ThemeExists(name: NonEmptyString) extends NoStackTrace
 
 object Themes:
   def instance[F[_]: MonadCancelThrow](postgres: Resource[F, Session[F]]): Themes[F] = new:
@@ -28,7 +28,7 @@ object Themes:
           cmd.execute(name).void
         .recoverWith:
           case SqlState.UniqueViolation(_) =>
-            ThemeNameExists(name).raiseError
+            ThemeExists(name).raiseError
 
     def list: F[List[Theme]] = postgres.use: session =>
       session.execute(selectThemes)
@@ -38,12 +38,11 @@ private object ThemeSQL:
 
   val insertTheme: Command[NonEmptyString] =
     sql"""
-         INSERT INTO themes (name)
+         INSERT INTO theme (name)
          VALUES ($nonEmptyString)
-         ON CONFLICT DO NOTHING
        """.command
 
   val selectThemes: Query[Void, Theme] =
     sql"""
-         SELECT * FROM themes
+         SELECT id, name FROM theme
        """.query(codec)

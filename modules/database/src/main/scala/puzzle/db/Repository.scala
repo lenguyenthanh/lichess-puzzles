@@ -7,8 +7,9 @@ import skunk.Session
 
 object Repository:
   def instance[F[_]: MonadCancelThrow](postgres: Resource[F, Session[F]]): Repository[F] =
-    Repository[F](Users.instance(postgres))
+    Repository(Users.instance(postgres), Themes.instance(postgres))
 
 class Repository[F[_]] private (
-    val users: Users[F]
+    val users: Users[F],
+    val themes: Themes[F],
 )

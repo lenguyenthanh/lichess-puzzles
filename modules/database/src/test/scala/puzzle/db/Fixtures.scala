@@ -8,24 +8,24 @@ import com.dimafeng.testcontainers.PostgreSQLContainer
 import org.testcontainers.utility.DockerImageName
 import cats.effect.kernel.Resource
 import eu.timepit.refined.types.string.NonEmptyString
-import eu.timepit.refined.types.net.UserPortNumber
 import eu.timepit.refined.types.numeric.PosInt
 import org.typelevel.log4cats.Logger
 import org.typelevel.log4cats.noop.NoOpLogger
+import eu.timepit.refined.types.net.PortNumber
 
 object Fixture:
 
   private def parseConfig(cont: PostgreSQLContainer): IO[PostgresConfig] =
     IO:
       val jdbcUrl = java.net.URI.create(cont.jdbcUrl.substring(5)).nn
-      (
-        NonEmptyString.from(jdbcUrl.getHost.nn),
-        UserPortNumber.from(jdbcUrl.getPort.nn),
-        NonEmptyString.from(cont.username.nn),
-        NonEmptyString.from(cont.password.nn),
-        NonEmptyString.from(cont.databaseName.nn),
-        PosInt.from(10),
-      ).parMapN(PostgresConfig(_, _, _, _, _, _)).getOrElse(throw new Exception("Failed to parse JDBC URL"))
+      PostgresConfig(
+        NonEmptyString.unsafeFrom(jdbcUrl.getHost.nn),
+        PortNumber.unsafeFrom(jdbcUrl.getPort.nn),
+        NonEmptyString.unsafeFrom(cont.username.nn),
+        NonEmptyString.unsafeFrom(cont.password.nn),
+        NonEmptyString.unsafeFrom(cont.databaseName.nn),
+        PosInt.unsafeFrom(10),
+      )
 
   private def postgresContainer: Resource[IO, PostgreSQLContainer] =
     val start = IO(
@@ -34,7 +34,7 @@ object Fixture:
 
     Resource.make(start)(cont => IO(cont.stop()))
 
-  def repositoryRes: Resource[IO, Repository[IO]] =
+  def createRepositoryResource: Resource[IO, Repository[IO]] =
 
     given Logger[IO] = NoOpLogger[IO]
 

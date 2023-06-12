@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS puzzle
 CREATE TABLE IF NOT EXISTS theme
 (
     id                 serial PRIMARY KEY,
-    name               text NOT NULL,
+    name               text UNIQUE NOT NULL,
     created_at         timestamptz NOT NULL DEFAULT NOW(),
     updated_at         timestamptz NOT NULL DEFAULT NOW()
 );
