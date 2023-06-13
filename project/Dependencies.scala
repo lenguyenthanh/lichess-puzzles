@@ -10,7 +10,7 @@ object Dependencies {
     val monocle = "3.2.0"
     val iron    = "2.0.0"
     val circe   = "0.14.5"
-    val http4s  = "0.23.19"
+    val http4s  = "0.23.20"
     val fs2Data = "1.7.1"
     val ciris   = "3.2.0"
     val refined = "0.10.3"
@@ -20,7 +20,7 @@ object Dependencies {
   def circe(artifact: String)            = "io.circe"   %% s"circe-$artifact"    % V.circe
   def fs2Data(artifact: String)          = "org.gnieh"  %% s"fs2-data-$artifact" % V.fs2Data
 
-  val chess = "org.lichess" %% "scalachess" % "15.2.6"
+  val chess = "org.lichess" %% "scalachess" % "15.2.11"
 
   val catsCore = "org.typelevel" %% "cats-core" % "2.9.0"
   val kittens  = "org.typelevel" %% "kittens"   % "3.0.0"
@@ -55,9 +55,9 @@ object Dependencies {
 
   val skunk = "org.tpolecat" %% "skunk-core" % "0.6.0"
 
-  val flyway4s = "com.github.geirolz" %% "fly4s-core"  % "0.0.17"
-  val flyway   = "org.flywaydb"        % "flyway-core" % "9.14.1"
-  val postgres = "org.postgresql"      % "postgresql"  % "42.5.0"
+  val flyway4s = "com.github.geirolz" %% "fly4s-core"  % "0.0.18"
+  val flyway   = "org.flywaydb"        % "flyway-core" % "9.19.4"
+  val postgres = "org.postgresql"      % "postgresql"  % "42.5.4"
 
   val http4sDsl    = http4s("dsl")
   val http4sServer = http4s("ember-server")
@@ -69,7 +69,7 @@ object Dependencies {
 
   val otel         = "org.typelevel" %% "otel4s-java"     % "0.2.1"
   val log4Cats     = "org.typelevel" %% "log4cats-slf4j"  % "2.6.0"
-  val logback      = "ch.qos.logback" % "logback-classic" % "1.2.11"
+  val logback      = "ch.qos.logback" % "logback-classic" % "1.2.12"
 
   val log4CatsNoop = "org.typelevel" %% "log4cats-noop"   % "2.6.0" % Test
   val testContainers   = "com.dimafeng"        %% "testcontainers-scala-postgresql" % "0.40.16" % Test

@@ -2,7 +2,7 @@ import Dependencies._
 
 inThisBuild(
   Seq(
-    scalaVersion  := "3.3.0-RC6",
+    scalaVersion  := "3.3.0",
     versionScheme := Some("early-semver"),
     run / fork    := true,
 
