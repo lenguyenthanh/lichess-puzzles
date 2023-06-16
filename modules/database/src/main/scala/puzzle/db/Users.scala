@@ -17,7 +17,7 @@ trait Users[F[_]]:
 case class UserIdExist(id: UserId) extends NoStackTrace
 
 object Users:
-  def instance[F[_]: MonadCancelThrow](postgres: Resource[F, Session[F]]): Users[F] = new:
+  def apply[F[_]: MonadCancelThrow](postgres: Resource[F, Session[F]]): Users[F] = new:
     import UserSQL.*
 
     def create(user: User): F[Unit] =

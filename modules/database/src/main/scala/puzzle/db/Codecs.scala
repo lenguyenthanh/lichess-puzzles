@@ -18,4 +18,5 @@ object Codecs:
   val nonNegInt: Codec[NonNegInt]           = int4.refine[NonNegative]
   val userId: Codec[UserId]                 = nonEmptyString.imap(UserId(_))(_.value)
   val themeId: Codec[ThemeId]               = nonNegInt.imap(ThemeId(_))(_.value)
+  val puzzleId: Codec[PuzzleId]             = nonEmptyString.imap(PuzzleId(_))(_.value)
   val openingId: Codec[OpeningId]           = nonNegInt.imap(OpeningId(_))(_.value)

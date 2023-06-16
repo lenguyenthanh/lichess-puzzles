@@ -14,35 +14,46 @@ import Codecs.*
 
 trait Themes[F[_]]:
   def create(name: NonEmptyString): F[Unit]
+  def byName(name: NonEmptyString): F[Option[Theme]]
   def list: F[List[Theme]]
 
 case class ThemeExists(name: NonEmptyString) extends NoStackTrace
 
 object Themes:
-  def instance[F[_]: MonadCancelThrow](postgres: Resource[F, Session[F]]): Themes[F] = new:
+  def apply[F[_]: MonadCancelThrow](postgres: Resource[F, Session[F]]): Themes[F] = new:
     import ThemeSQL.*
 
     def create(name: NonEmptyString): F[Unit] =
       postgres.use: session =>
-        session.prepare(insertTheme).flatMap: cmd =>
+        session.prepare(insert).flatMap: cmd =>
           cmd.execute(name).void
         .recoverWith:
           case SqlState.UniqueViolation(_) =>
             ThemeExists(name).raiseError
 
     def list: F[List[Theme]] = postgres.use: session =>
-      session.execute(selectThemes)
+      session.execute(selectAll)
+
+    def byName(name: NonEmptyString): F[Option[Theme]] = postgres.use: session =>
+      session.prepare(selectByName).flatMap: cmd =>
+        cmd.option(name)
 
 private object ThemeSQL:
   val codec: Codec[Theme] = (themeId *: nonEmptyString).to[Theme]
 
-  val insertTheme: Command[NonEmptyString] =
+  val insert: Command[NonEmptyString] =
     sql"""
          INSERT INTO theme (name)
          VALUES ($nonEmptyString)
        """.command
 
-  val selectThemes: Query[Void, Theme] =
+  val selectAll: Query[Void, Theme] =
     sql"""
          SELECT id, name FROM theme
+       """.query(codec)
+
+  val selectByName: Query[NonEmptyString, Theme] =
+    sql"""
+         SELECT id, name FROM theme
+         WHERE name = $nonEmptyString
        """.query(codec)

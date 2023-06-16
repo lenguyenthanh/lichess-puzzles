@@ -19,7 +19,7 @@ trait Openings[F[_]]:
 case class OpeningExists(name: NonEmptyString) extends NoStackTrace
 
 object Openings:
-  def instance[F[_]: MonadCancelThrow](postgres: Resource[F, Session[F]]): Openings[F] = new:
+  def apply[F[_]: MonadCancelThrow](postgres: Resource[F, Session[F]]): Openings[F] = new:
     import OpeningSQL.*
 
     def create(name: NonEmptyString): F[Unit] =

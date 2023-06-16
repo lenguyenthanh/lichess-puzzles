@@ -28,8 +28,6 @@ object PuzzleThemes:
           case SqlState.UniqueViolation(_) =>
             PuzzleIdExists(puzzleId).raiseError
 
-
-
 private object PuzzleThemesSQL:
   val insert: Command[(PuzzleId, ThemeId)] =
     sql"""
