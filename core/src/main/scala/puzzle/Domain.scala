@@ -31,6 +31,8 @@ case class User(id: UserId, name: NonEmptyString) derives Codec.AsObject, Eq, Sh
 
 case class Theme(id: ThemeId, name: NonEmptyString) derives Codec.AsObject, Eq, Show
 
+case class Opening(id: OpeningId, name: NonEmptyString) derives Codec.AsObject, Eq, Show
+
 type PuzzleId = PuzzleId.Type
 object PuzzleId extends Newtype[NonEmptyString]
 
@@ -39,3 +41,6 @@ object UserId extends Newtype[NonEmptyString]
 
 type ThemeId = ThemeId.Type
 object ThemeId extends Newtype[NonNegInt]
+
+type OpeningId = OpeningId.Type
+object OpeningId extends Newtype[NonNegInt]

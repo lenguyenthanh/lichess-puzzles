@@ -20,8 +20,8 @@ object ThemesSuite extends SimpleIOSuite:
   test("insert a theme twice throw ThemExists"):
     resource.use: themes =>
       themes.create(name1) >> themes.create(name1).attempt.map:
-        case Left(ThemeExists(themeName)) => expect(true)
-        case _                            => expect(false)
+        case Left(ThemeExists(_)) => expect(true)
+        case _                    => expect(false)
 
   test("insert a two theme andThen get"):
     resource.use: themes =>
