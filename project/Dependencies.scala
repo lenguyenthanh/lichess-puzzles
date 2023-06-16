@@ -13,7 +13,7 @@ object Dependencies {
     val http4s  = "0.23.20"
     val fs2Data = "1.7.1"
     val ciris   = "3.2.0"
-    val refined = "0.10.3"
+    val refined = "0.11.0"
   }
 
   def http4s(artifact: String): ModuleID = "org.http4s" %% s"http4s-$artifact"   % V.http4s
