@@ -24,7 +24,28 @@ case class Puzzle(
     popularity: Int,
     nbPlays: Int,
     themes: List[NonEmptyString],
-    openingTags: List[NonEmptyString],
+    openings: List[NonEmptyString],
+) derives Codec.AsObject, Eq, Show
+
+case class NewPuzzle(
+    id: PuzzleId,
+    fen: EpdFen,
+    moves: List[Uci],
+    rating: NonNegInt,
+    ratingDeviation: Int,
+    popularity: NonNegInt,
+    nbPlays: NonNegInt,
+) derives Eq, Show
+
+case class Game(
+    id: GameId,
+    fen: EpdFen,
+    moves: List[Uci],
+    whiteId: UserId,
+    blackId: UserId,
+    winner: Option[Color],
+    themes: List[NonEmptyString],
+    openings: List[NonEmptyString],
 ) derives Codec.AsObject, Eq, Show
 
 case class User(id: UserId, name: NonEmptyString) derives Codec.AsObject, Eq, Show
@@ -38,6 +59,10 @@ object PuzzleId extends Newtype[NonEmptyString]
 
 type UserId = UserId.Type
 object UserId extends Newtype[NonEmptyString]
+
+// TODO: fixed length
+type GameId = GameId.Type
+object GameId extends Newtype[NonEmptyString]
 
 type ThemeId = ThemeId.Type
 object ThemeId extends Newtype[NonNegInt]

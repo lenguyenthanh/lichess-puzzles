@@ -6,6 +6,8 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE TYPE mood AS ENUM ('white', 'black');
+
 CREATE TABLE IF NOT EXISTS users
 (
     id                 text PRIMARY KEY, -- lichess id
@@ -24,8 +26,6 @@ CREATE TABLE IF NOT EXISTS game
     speed              text NOT NULL,
     perf               text NOT NULL,
     played_at          timestamptz NOT NULL,
-    status             text NOT NULL,
-    winner             text,
     created_at         timestamptz NOT NULL DEFAULT NOW(),
     updated_at         timestamptz NOT NULL DEFAULT NOW(),
     FOREIGN KEY (white_id) REFERENCES users,
@@ -34,12 +34,14 @@ CREATE TABLE IF NOT EXISTS game
 
 CREATE TABLE IF NOT EXISTS puzzle
 (
-    lichess_id         text PRIMARY KEY,
-    game_id            text NOT NULL,
+    id         text PRIMARY KEY,
+    game_id            text UNIQUE,
     fen                text NOT NULL,
     moves              text NOT NULL,
     rating             integer NOT NULL,
+    rating_deviation   integer NOT NULL,
     popularity         integer NOT NULL,
+    play_times         integer NOT NULL,
     created_at         timestamptz NOT NULL DEFAULT NOW(),
     updated_at         timestamptz NOT NULL DEFAULT NOW(),
     FOREIGN KEY (game_id) REFERENCES game
@@ -67,6 +69,7 @@ CREATE TABLE IF NOT EXISTS puzzle_theme
 CREATE TABLE IF NOT EXISTS opening
 (
     id                 serial PRIMARY KEY,
+    key                text UNIQUE NOT NULL,
     name               text UNIQUE NOT NULL,
     created_at         timestamptz NOT NULL DEFAULT NOW(),
     updated_at         timestamptz NOT NULL DEFAULT NOW()

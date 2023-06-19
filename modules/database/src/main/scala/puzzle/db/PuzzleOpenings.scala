@@ -11,13 +11,13 @@ import skunk.implicits.*
 import Codecs.*
 
 trait PuzzleOpenings[F[_]]:
-  def upsert(puzzleId: PuzzleId, openingId: OpeningId): F[Unit]
+  def create(puzzleId: PuzzleId, openingId: OpeningId): F[Unit]
 
 object PuzzleOpenings:
   def apply[F[_]: MonadCancelThrow](postgres: Resource[F, Session[F]]): PuzzleOpenings[F] = new:
     import PuzzleOpeningSQL.*
 
-    def upsert(puzzleId: PuzzleId, openingId: OpeningId) =
+    def create(puzzleId: PuzzleId, openingId: OpeningId) =
       postgres.use: session =>
         session.prepare(insert).flatMap: cmd =>
           cmd.execute(puzzleId, openingId).void
@@ -25,7 +25,7 @@ object PuzzleOpenings:
           case SqlState.UniqueViolation(_) =>
             PuzzleIdExists(puzzleId).raiseError
 
-private object PuzzleOpeningSQL:
+object PuzzleOpeningSQL:
   val insert: Command[(PuzzleId, OpeningId)] =
     sql"""
         INSERT INTO puzzle_opening (puzzle_id, opening_id)
