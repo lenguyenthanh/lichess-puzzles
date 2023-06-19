@@ -68,4 +68,4 @@ type ThemeId = ThemeId.Type
 object ThemeId extends Newtype[NonNegInt]
 
 type OpeningId = OpeningId.Type
-object OpeningId extends Newtype[NonNegInt]
+object OpeningId extends Newtype[NonEmptyString]

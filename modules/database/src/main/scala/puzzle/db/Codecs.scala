@@ -20,7 +20,7 @@ object Codecs:
   val userId: Codec[UserId]                 = nonEmptyString.imap(UserId(_))(_.value)
   val themeId: Codec[ThemeId]               = nonNegInt.imap(ThemeId(_))(_.value)
   val puzzleId: Codec[PuzzleId]             = nonEmptyString.imap(PuzzleId(_))(_.value)
-  val openingId: Codec[OpeningId]           = nonNegInt.imap(OpeningId(_))(_.value)
+  val openingId: Codec[OpeningId]           = nonEmptyString.imap(OpeningId(_))(_.value)
 
   val epdFen: Codec[EpdFen] = text.imap(EpdFen(_))(_.value)
 

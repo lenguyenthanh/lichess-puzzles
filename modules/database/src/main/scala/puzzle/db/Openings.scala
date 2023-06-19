@@ -13,22 +13,22 @@ import skunk.implicits.*
 import Codecs.*
 
 trait Openings[F[_]]:
-  def create(name: NonEmptyString): F[Unit]
+  def create(opening: Opening): F[Unit]
   def list: F[List[Opening]]
 
-case class OpeningExists(name: NonEmptyString) extends NoStackTrace
+case class OpeningIdExists(id: OpeningId) extends NoStackTrace
 
 object Openings:
   def apply[F[_]: MonadCancelThrow](postgres: Resource[F, Session[F]]): Openings[F] = new:
     import OpeningSQL.*
 
-    def create(name: NonEmptyString): F[Unit] =
+    def create(opening: Opening): F[Unit] =
       postgres.use: session =>
         session.prepare(insertOpening).flatMap: cmd =>
-          cmd.execute(name).void
+          cmd.execute(opening).void
         .recoverWith:
           case SqlState.UniqueViolation(_) =>
-            OpeningExists(name).raiseError
+            OpeningIdExists(opening.id).raiseError
 
     def list: F[List[Opening]] = postgres.use: session =>
       session.execute(selectOpenings)
@@ -36,10 +36,10 @@ object Openings:
 private object OpeningSQL:
   val codec: Codec[Opening] = (openingId *: nonEmptyString).to[Opening]
 
-  val insertOpening: Command[NonEmptyString] =
+  val insertOpening: Command[Opening] =
     sql"""
-         INSERT INTO opening (name)
-         VALUES ($nonEmptyString)
+         INSERT INTO opening
+         VALUES ($codec)
        """.command
 
   val selectOpenings: Query[Void, Opening] =
