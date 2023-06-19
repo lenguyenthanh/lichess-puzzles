@@ -1,4 +1,4 @@
-INSERT INTO opening (key, name) VALUES
+INSERT INTO opening (id, name) VALUES
 	('Alekhine_Defense', 'Alekhine Defense'),
 	('Alekhine_Defense_Balogh_Variation', 'Alekhine Defense: Balogh Variation'),
 	('Alekhine_Defense_Brooklyn_Variation', 'Alekhine Defense: Brooklyn Variation'),

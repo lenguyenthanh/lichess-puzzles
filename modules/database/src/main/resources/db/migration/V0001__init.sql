@@ -68,8 +68,7 @@ CREATE TABLE IF NOT EXISTS puzzle_theme
 
 CREATE TABLE IF NOT EXISTS opening
 (
-    id                 serial PRIMARY KEY,
-    key                text NOT NULL,
+    id                 text PRIMARY KEY,
     name               text UNIQUE NOT NULL,
     created_at         timestamptz NOT NULL DEFAULT NOW(),
     updated_at         timestamptz NOT NULL DEFAULT NOW()
@@ -78,7 +77,7 @@ CREATE TABLE IF NOT EXISTS opening
 CREATE TABLE IF NOT EXISTS puzzle_opening
 (
     puzzle_id          text NOT NULL,
-    opening_id         serial NOT NULL,
+    opening_id         text NOT NULL,
     created_at         timestamptz NOT NULL DEFAULT NOW(),
     updated_at         timestamptz NOT NULL DEFAULT NOW(),
     FOREIGN KEY (puzzle_id) REFERENCES puzzle,
