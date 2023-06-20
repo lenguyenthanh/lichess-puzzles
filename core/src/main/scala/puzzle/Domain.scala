@@ -25,7 +25,21 @@ case class Puzzle(
     nbPlays: Int,
     themes: List[NonEmptyString],
     openings: List[NonEmptyString],
-) derives Codec.AsObject, Eq, Show
+) derives Codec.AsObject, Eq, Show:
+
+  def toNewPuzzle: NewPuzzle =
+    NewPuzzle(
+      id = id,
+      fen = fen,
+      moves = moves,
+      rating = NonNegInt.unsafeFrom(rating),
+      ratingDeviation = ratingDeviation,
+      popularity = NonNegInt.unsafeFrom(popularity),
+      nbPlays = NonNegInt.unsafeFrom(nbPlays),
+    )
+
+  def puzzleOpenings: List[(PuzzleId, OpeningId)] =
+    openings.map(id -> OpeningId(_))
 
 case class NewPuzzle(
     id: PuzzleId,

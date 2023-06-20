@@ -9,10 +9,11 @@ import eu.timepit.refined.types.numeric.NonNegInt
 
 object PuzzlesSuite extends SimpleIOSuite:
 
-  val theme1 = NonEmptyString.unsafeFrom("theme1")
-  val name2  = NonEmptyString.unsafeFrom("test2")
+  val theme1  = NonEmptyString.unsafeFrom("theme1")
+  val name2   = NonEmptyString.unsafeFrom("test2")
+  val opening = OpeningId(NonEmptyString.unsafeFrom("French Defense"))
 
-  val puzzle = NewPuzzle(
+  val newPuzzle = NewPuzzle(
     id = PuzzleId(NonEmptyString.unsafeFrom("id")),
     fen = EpdFen("fen"),
     moves = List("e2e4", "e7e5").flatMap(Uci.apply),
@@ -22,8 +23,24 @@ object PuzzlesSuite extends SimpleIOSuite:
     nbPlays = NonNegInt.unsafeFrom(100),
   )
 
+  val puzzle = Puzzle(
+    id = PuzzleId(NonEmptyString.unsafeFrom("id")),
+    fen = EpdFen("fen"),
+    moves = List("e2e4", "e7e5").flatMap(Uci.apply),
+    rating = 1990,
+    ratingDeviation = 50,
+    popularity = 90,
+    nbPlays = 100,
+    themes = List(theme1),
+    openings = List(opening.value),
+  )
+
   private def resource =
-    Fixture.createRepositoryResource.map(_.puzzles)
+    Fixture.createRepositoryResource
 
   test("create success"):
-    resource.use(_.create(puzzle).map(_ => expect(true)))
+    resource.use: resource =>
+      for
+        _ <- resource.openings.create(Opening(opening, name2))
+        _ <- resource.puzzles.create(puzzle)
+      yield expect(true)
