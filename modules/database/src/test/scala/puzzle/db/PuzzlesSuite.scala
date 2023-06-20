@@ -34,3 +34,12 @@ object PuzzlesSuite extends SimpleIOSuite:
         _ <- resource.themes.create(theme1)
         _ <- resource.puzzles.create(puzzle)
       yield expect(true)
+
+  test("create and get"):
+    resource.use: resource =>
+      for
+        _ <- resource.openings.create(Opening(opening, name2))
+        _ <- resource.themes.create(theme1)
+        _ <- resource.puzzles.create(puzzle)
+        p <- resource.puzzles.byId(puzzle.id)
+      yield expect.eql(p, puzzle)

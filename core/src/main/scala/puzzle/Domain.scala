@@ -41,6 +41,20 @@ case class Puzzle(
   def puzzleOpenings: List[(PuzzleId, OpeningId)] =
     openings.map(id -> OpeningId(_))
 
+object Puzzle:
+  def apply(p: NewPuzzle, o: List[OpeningId], t: List[NonEmptyString]): Puzzle =
+    Puzzle(
+      id = p.id,
+      fen = p.fen,
+      moves = p.moves,
+      rating = p.rating.value,
+      ratingDeviation = p.ratingDeviation,
+      popularity = p.popularity.value,
+      nbPlays = p.nbPlays.value,
+      themes = t,
+      openings = o.map(_.value),
+    )
+
 case class NewPuzzle(
     id: PuzzleId,
     fen: EpdFen,
