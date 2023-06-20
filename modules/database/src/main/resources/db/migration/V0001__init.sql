@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS game
 
 CREATE TABLE IF NOT EXISTS puzzle
 (
-    id         text PRIMARY KEY,
+    id                 text PRIMARY KEY,
     game_id            text UNIQUE,
     fen                text NOT NULL,
     moves              text NOT NULL,

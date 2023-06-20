@@ -5,23 +5,12 @@ package tests
 import chess.format.{ EpdFen, Uci }
 import weaver.*
 import eu.timepit.refined.types.string.NonEmptyString
-import eu.timepit.refined.types.numeric.NonNegInt
 
 object PuzzlesSuite extends SimpleIOSuite:
 
   val theme1  = NonEmptyString.unsafeFrom("theme1")
   val name2   = NonEmptyString.unsafeFrom("test2")
   val opening = OpeningId(NonEmptyString.unsafeFrom("French Defense"))
-
-  val newPuzzle = NewPuzzle(
-    id = PuzzleId(NonEmptyString.unsafeFrom("id")),
-    fen = EpdFen("fen"),
-    moves = List("e2e4", "e7e5").flatMap(Uci.apply),
-    rating = NonNegInt.unsafeFrom(1990),
-    ratingDeviation = 50,
-    popularity = NonNegInt.unsafeFrom(90),
-    nbPlays = NonNegInt.unsafeFrom(100),
-  )
 
   val puzzle = Puzzle(
     id = PuzzleId(NonEmptyString.unsafeFrom("id")),
@@ -42,5 +31,6 @@ object PuzzlesSuite extends SimpleIOSuite:
     resource.use: resource =>
       for
         _ <- resource.openings.create(Opening(opening, name2))
+        _ <- resource.themes.create(theme1)
         _ <- resource.puzzles.create(puzzle)
       yield expect(true)
