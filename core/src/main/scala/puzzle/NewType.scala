@@ -54,7 +54,6 @@ abstract class NumNewtype[A](
 ) extends Newtype[A]:
 
   extension (x: Type)
-
     inline def -[T](using inv: T =:= Type)(y: T): Type = apply(num.minus(x.value, inv.apply(y).value))
 
-    inline def +[T](using inv: T =:= Type)(y: T): Type = apply(num.plus(x.value, inv.apply(y).value))
+  inline def +[T](using inv: T =:= Type)(y: T): Type = apply(num.plus(x.value, inv.apply(y).value))
