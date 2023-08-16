@@ -31,7 +31,7 @@ object Flyway:
       password = config.password,
       config = Fly4sConfig(
         table = config.migrationsTable,
-        locations = Location.of(config.migrationsLocations),
+        locations = Locations(config.migrationsLocations),
       ),
     )
     .map(instance[F])
