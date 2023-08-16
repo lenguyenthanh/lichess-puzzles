@@ -3,14 +3,8 @@ package puzzle.backend
 import org.typelevel.log4cats.Logger
 import cats.effect.*
 
-import skunk.*
-import skunk.codec.text.*
-import skunk.implicits.*
-import cats.*
-import cats.syntax.all.*
 import cats.effect.std.Console
 import fs2.io.net.Network
-import natchez.Trace.Implicits.noop
 import puzzle.db.DbResources
 import puzzle.db.PostgresConfig
 
