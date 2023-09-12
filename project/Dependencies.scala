@@ -6,7 +6,7 @@ object Dependencies {
 
   object V {
     val decline = "2.4.1"
-    val fs2     = "3.9.1"
+    val fs2     = "3.9.2"
     val monocle = "3.2.0"
     val iron    = "2.0.0"
     val circe   = "0.14.6"
