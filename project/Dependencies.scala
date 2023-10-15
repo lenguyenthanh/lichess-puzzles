@@ -11,7 +11,7 @@ object Dependencies {
     val iron    = "2.0.0"
     val circe   = "0.14.6"
     val http4s  = "0.23.23"
-    val fs2Data = "1.9.0"
+    val fs2Data = "1.9.1"
     val ciris   = "3.3.0"
     val refined = "0.11.0"
   }
