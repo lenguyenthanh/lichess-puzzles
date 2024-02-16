@@ -53,7 +53,7 @@ object Dependencies {
   val refinedCore = "eu.timepit" %% "refined"      % V.refined
   val refinedCats = "eu.timepit" %% "refined-cats" % V.refined
 
-  val skunk = "org.tpolecat" %% "skunk-core" % "0.6.1"
+  val skunk = "org.tpolecat" %% "skunk-core" % "0.6.3"
 
   val flyway4s = "com.github.geirolz" %% "fly4s-core"  % "0.0.19"
   val flyway   = "org.flywaydb"        % "flyway-core" % "9.22.3"
