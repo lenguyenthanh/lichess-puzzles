@@ -55,7 +55,7 @@ object Dependencies {
 
   val skunk = "org.tpolecat" %% "skunk-core" % "0.6.1"
 
-  val flyway4s = "com.github.geirolz" %% "fly4s-core"  % "0.0.19"
+  val flyway4s = "com.github.geirolz" %% "fly4s-core"  % "0.0.20"
   val flyway   = "org.flywaydb"        % "flyway-core" % "9.22.3"
   val postgres = "org.postgresql"      % "postgresql"  % "42.6.0"
 
