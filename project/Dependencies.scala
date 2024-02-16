@@ -69,7 +69,7 @@ object Dependencies {
 
   val otel     = "org.typelevel" %% "otel4s-java"     % "0.2.1"
   val log4Cats = "org.typelevel" %% "log4cats-slf4j"  % "2.6.0"
-  val logback  = "ch.qos.logback" % "logback-classic" % "1.4.11"
+  val logback  = "ch.qos.logback" % "logback-classic" % "1.4.14"
 
   val log4CatsNoop     = "org.typelevel"       %% "log4cats-noop"                   % "2.6.0"  % Test
   val testContainers   = "com.dimafeng"        %% "testcontainers-scala-postgresql" % "0.41.0" % Test
