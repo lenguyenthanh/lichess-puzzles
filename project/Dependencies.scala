@@ -72,7 +72,7 @@ object Dependencies {
   val logback  = "ch.qos.logback" % "logback-classic" % "1.4.11"
 
   val log4CatsNoop     = "org.typelevel"       %% "log4cats-noop"                   % "2.6.0"  % Test
-  val testContainers   = "com.dimafeng"        %% "testcontainers-scala-postgresql" % "0.41.0" % Test
+  val testContainers   = "com.dimafeng"        %% "testcontainers-scala-postgresql" % "0.41.2" % Test
   val weaver           = "com.disneystreaming" %% "weaver-cats"                     % "0.8.3"  % Test
   val weaverScalaCheck = "com.disneystreaming" %% "weaver-scalacheck"               % "0.8.3"  % Test
 
