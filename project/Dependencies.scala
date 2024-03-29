@@ -67,7 +67,7 @@ object Dependencies {
   val decline       = "com.monovore" %% "decline"        % V.decline
   val declineEffect = "com.monovore" %% "decline-effect" % V.decline
 
-  val otel     = "org.typelevel" %% "otel4s-java"     % "0.4.0"
+  val otel     = "org.typelevel" %% "otel4s-oteljava" % "0.5.0"
   val log4Cats = "org.typelevel" %% "log4cats-slf4j"  % "2.6.0"
   val logback  = "ch.qos.logback" % "logback-classic" % "1.5.3"
 
