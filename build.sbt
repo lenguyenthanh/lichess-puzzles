@@ -55,6 +55,7 @@ lazy val database = (project in file("modules/database"))
       skunk,
       postgres,
       flyway,
+      flywayPostgres,
       flyway4s,
       otel,
       testContainers,
