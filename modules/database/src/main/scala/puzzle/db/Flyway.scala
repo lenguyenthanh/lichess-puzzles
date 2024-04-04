@@ -4,8 +4,8 @@ package db
 import cats.syntax.all.*
 import cats.effect.*
 
-import fly4s.core.*
-import fly4s.core.data.*
+import fly4s.*
+import fly4s.data.*
 import org.typelevel.log4cats.Logger
 import org.flywaydb.core.api.output.ValidateOutput
 import cats.data.NonEmptyList
@@ -36,7 +36,7 @@ object Flyway:
     )
     .map(instance[F])
 
-  def showError: NonEmptyList[fly4s.core.data.ValidateOutput] => String = _.map(_.showError).toList.mkString("\n")
+  def showError: NonEmptyList[fly4s.data.ValidateOutput] => String = _.map(_.showError).toList.mkString("\n")
 
   extension (vo: ValidateOutput)
     def showError: String =

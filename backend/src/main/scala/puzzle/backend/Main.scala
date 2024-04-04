@@ -13,15 +13,16 @@ object Main extends IOApp.Simple:
 
   given Logger[IO] = Slf4jLogger.getLogger[IO]
 
-  override def run: IO[Unit] = Config
-    .load[IO]
-    .flatMap: cfg =>
-      AppResources
-        .instance[IO](cfg.postgres)
-        .evalTap(_.db.flyway.migrate)
-        .flatMap: res =>
-          val services    = Repository.instance[IO](res.db.postgres)
-          val healthCheck = HealthCheck.instance[IO](res.db.postgres)
-          val app         = HttpApi[IO](services, healthCheck).httpApp
-          MkHttpServer[IO].newEmber(cfg.server, app)
-        .useForever
+  override def run: IO[Unit] =
+    Config
+      .load[IO]
+      .flatMap: cfg =>
+        AppResources
+          .instance[IO](cfg.postgres)
+          .evalTap(_.db.flyway.migrate)
+          .flatMap: res =>
+            val services    = Repository.instance[IO](res.db.postgres)
+            val healthCheck = HealthCheck.instance[IO](res.db.postgres)
+            val app         = HttpApi[IO](services, healthCheck).httpApp
+            MkHttpServer[IO].newEmber(cfg.server, app)
+          .useForever

@@ -1,16 +1,10 @@
-import Dependencies._
+import Dependencies.*
 
 inThisBuild(
   Seq(
     scalaVersion  := "3.4.1",
     versionScheme := Some("early-semver"),
     run / fork    := true,
-
-    // Github Workflow
-    githubWorkflowPublishTargetBranches := Seq(), // Don't publish anywhere
-    githubWorkflowJavaVersions          := Seq(JavaSpec.temurin("17")),
-    githubWorkflowUseSbtThinClient      := true,
-    githubWorkflowEnv                   := Map("SBT_OPTS" -> "-Xmx2048M"),
   )
 )
 
@@ -55,6 +49,7 @@ lazy val database = (project in file("modules/database"))
       skunk,
       postgres,
       flyway,
+      flywayPostgres,
       flyway4s,
       otel,
       testContainers,
