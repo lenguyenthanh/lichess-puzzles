@@ -58,7 +58,7 @@ object Dependencies {
   val flyway4s       = "com.github.geirolz" %% "fly4s"                      % "1.0.1"
   val flyway         = "org.flywaydb"        % "flyway-core"                % "10.11.0"
   val flywayPostgres = "org.flywaydb"        % "flyway-database-postgresql" % "10.11.0"
-  val postgres       = "org.postgresql"      % "postgresql"  % "42.7.3"
+  val postgres       = "org.postgresql"      % "postgresql"                 % "42.7.3"
 
   val http4sDsl    = http4s("dsl")
   val http4sServer = http4s("ember-server")
@@ -70,7 +70,7 @@ object Dependencies {
 
   val otel     = "org.typelevel" %% "otel4s-oteljava" % "0.5.0"
   val log4Cats = "org.typelevel" %% "log4cats-slf4j"  % "2.6.0"
-  val logback  = "ch.qos.logback" % "logback-classic" % "1.5.3"
+  val logback  = "ch.qos.logback" % "logback-classic" % "1.5.4"
 
   val log4CatsNoop     = "org.typelevel"       %% "log4cats-noop"                   % "2.6.0"  % Test
   val testContainers   = "com.dimafeng"        %% "testcontainers-scala-postgresql" % "0.41.3" % Test
