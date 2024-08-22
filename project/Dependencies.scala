@@ -58,7 +58,7 @@ object Dependencies {
   val flyway4s       = "com.github.geirolz" %% "fly4s"                      % "1.0.7"
   val flyway         = "org.flywaydb"        % "flyway-core"                % "10.11.0"
   val flywayPostgres = "org.flywaydb"        % "flyway-database-postgresql" % "10.11.0"
-  val postgres       = "org.postgresql"      % "postgresql"                 % "42.7.3"
+  val postgres       = "org.postgresql"      % "postgresql"                 % "42.7.4"
 
   val http4sDsl    = http4s("dsl")
   val http4sServer = http4s("ember-server")
