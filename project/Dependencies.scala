@@ -9,7 +9,7 @@ object Dependencies {
     val fs2     = "3.11.0"
     val monocle = "3.2.0"
     val iron    = "2.0.0"
-    val circe   = "0.14.6"
+    val circe   = "0.14.9"
     val http4s  = "0.23.23"
     val fs2Data = "1.9.1"
     val ciris   = "3.4.0"
