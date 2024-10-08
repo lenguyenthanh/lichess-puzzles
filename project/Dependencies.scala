@@ -44,7 +44,7 @@ object Dependencies {
   val fs2DataCsvGeneric = fs2Data("csv-generic")
   val fs2DataJson       = fs2Data("json")
   val fs2DataJsonCirce  = fs2Data("json-circe")
-  val fs2Zstd           = "de.lhns" %% "fs2-compress-zstd" % "2.0.0"
+  val fs2Zstd           = "de.lhns" %% "fs2-compress-zstd" % "2.1.0"
 
   val cirisCore    = "is.cir" %% "ciris"         % V.ciris
   val cirisHtt4s   = "is.cir" %% "ciris-http4s"  % V.ciris
