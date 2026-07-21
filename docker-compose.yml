@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   kafka:
-    image: "bitnami/kafka:3.4.0"
+    image: "soldevelo/kafka:3.4.1"
     container_name: kafka
     ports:
       - "9092:9092"
