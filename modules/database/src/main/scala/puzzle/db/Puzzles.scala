@@ -26,7 +26,7 @@ object Puzzles:
           puzzleCmd   <- s.prepare(insertPuzzle)
           openingsCmd <- s.prepare(insertOpenings(puzzle.openings.size))
           themesCmd   <- s.prepare(insertThemes(puzzle.themes.size))
-          _ <- s.transaction.use: _ =>
+          _           <- s.transaction.use: _ =>
             insert(puzzleCmd)(puzzle.toNewPuzzle) >>
               insert(openingsCmd)(puzzle.puzzleOpenings)
               >> insert(themesCmd)(puzzle.id, puzzle.themes)
@@ -54,8 +54,8 @@ object Puzzles:
 
 private object PuzzleSql:
 
-  val newPuzzle: Codec[NewPuzzle] =
-    (puzzleId *: epdFen *: moves *: nonNegInt *: int4 *: nonNegInt *: nonNegInt).to[NewPuzzle]
+  val newPuzzle
+      : Codec[NewPuzzle] = (puzzleId *: epdFen *: moves *: nonNegInt *: int4 *: nonNegInt *: nonNegInt).to[NewPuzzle]
 
   val selectThemesByPuzzleId: Query[PuzzleId, NonEmptyString] =
     sql"""
